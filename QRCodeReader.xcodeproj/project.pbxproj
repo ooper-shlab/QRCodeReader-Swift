@@ -415,6 +415,7 @@
 				D70C386C1AF0DC9D0001F1D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D70C386D1AF0DC9D0001F1D8 /* Build configuration list for PBXNativeTarget "QRCodeReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +424,7 @@
 				D70C386F1AF0DC9D0001F1D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -26,12 +26,12 @@
                                     <constraint firstAttribute="width" secondItem="ezR-JD-qbB" secondAttribute="height" multiplier="1:1" id="Tyo-Yq-J1m"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y5u-mP-5Io">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y5u-mP-5Io">
                                 <rect key="frame" x="16" y="518" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gX-9M-wrW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gX-9M-wrW">
                                 <rect key="frame" x="16" y="480" width="288" height="30"/>
                                 <color key="backgroundColor" white="0.74596768999999996" alpha="0.99000001000000004" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Open"/>
@@ -43,7 +43,13 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ezR-JD-qbB" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="5Yn-SD-4nX"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="y5u-mP-5Io" secondAttribute="bottom" constant="20" id="Iub-1Z-n4i"/>
+                            <constraint firstItem="y5u-mP-5Io" firstAttribute="top" secondItem="8gX-9M-wrW" secondAttribute="bottom" constant="8" id="PiK-ps-yFd"/>
                             <constraint firstItem="ezR-JD-qbB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="T1s-7P-uLz"/>
+                            <constraint firstItem="y5u-mP-5Io" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Yvm-rC-qpV"/>
+                            <constraint firstItem="8gX-9M-wrW" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="aXb-Vl-zKa"/>
+                            <constraint firstItem="8gX-9M-wrW" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="fhg-32-ioa"/>
+                            <constraint firstItem="y5u-mP-5Io" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="g7h-R9-kij"/>
                             <constraint firstItem="ezR-JD-qbB" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" constant="16" id="xcY-E8-UHo"/>
                         </constraints>
                     </view>

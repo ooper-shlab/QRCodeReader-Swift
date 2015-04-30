@@ -70,15 +70,11 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if !updatable {
             return
         }
-        for data in metadataObjects {
-            
-            if !(data is AVMetadataMachineReadableCodeObject) {
-                continue
-            }
-            
-            let strValue = (data as! AVMetadataMachineReadableCodeObject).stringValue
-            
-            if data.type == AVMetadataObjectTypeQRCode {
+        
+        for metadata in metadataObjects {
+            if let readableCode = metadata as? AVMetadataMachineReadableCodeObject
+            where readableCode.type == AVMetadataObjectTypeQRCode {
+                let strValue = readableCode.stringValue
                 self.textField.text = strValue
                 if regex.numberOfMatchesInString(strValue, options: nil, range: NSRange(0..<count(strValue.utf16))) > 0 {
                     self.openButton.enabled = true
