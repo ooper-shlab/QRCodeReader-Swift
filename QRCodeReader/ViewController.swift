@@ -15,7 +15,7 @@ private let pattern = "^https?://(www\\.)?(oopers\\.com|shlab\\.jp)(/.*)?$"
 private let INSENSITIVE_NANOS: Int64 = 3_000_000_000 //3 seconds
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    private let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)!
+    private let regex = try! NSRegularExpression(pattern: pattern, options: [])
     
     @IBOutlet var imagePreviewView: UIView!
     var stillImageOutput: AVCaptureStillImageOutput!
@@ -39,18 +39,18 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetMedium
         
-        let viewLayer = self.imagePreviewView.layer
         let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
         captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         captureVideoPreviewLayer.frame = self.imagePreviewView.bounds
-        println(self.imagePreviewView.bounds)
+        print(self.imagePreviewView.bounds)
         self.imagePreviewView.layer.addSublayer(captureVideoPreviewLayer)
         
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        var error: NSError?
-        let input = AVCaptureDeviceInput(device: device, error: &error)
-        if error != nil {
-            fatalError("ERROR: trying to open camera: \(error!)")
+        let input: AVCaptureDeviceInput!
+        do {
+            input = try AVCaptureDeviceInput(device: device)
+        } catch let error as NSError {
+            fatalError("ERROR: trying to open camera: \(error)")
         }
         session.addInput(input)
         session.startRunning()
@@ -76,7 +76,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             where readableCode.type == AVMetadataObjectTypeQRCode {
                 let strValue = readableCode.stringValue
                 self.textField.text = strValue
-                if regex.numberOfMatchesInString(strValue, options: nil, range: NSRange(0..<count(strValue.utf16))) > 0 {
+                if regex.numberOfMatchesInString(strValue, options: [], range: NSRange(0..<strValue.utf16.count)) > 0 {
                     self.openButton.enabled = true
                     self.updatable = false
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, INSENSITIVE_NANOS), dispatch_get_main_queue()) {
@@ -91,7 +91,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBAction func openURL(AnyObject) {
         let urlStr = textField.text
-        if let url = NSURL(string: urlStr)
+        if let url = NSURL(string: urlStr!)
         where UIApplication.sharedApplication().canOpenURL(url) {
             UIApplication.sharedApplication().openURL(url)
         }

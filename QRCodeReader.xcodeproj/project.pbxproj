@@ -13,6 +13,7 @@
 		D70C38581AF0DC9D0001F1D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70C38571AF0DC9D0001F1D8 /* Images.xcassets */; };
 		D70C385B1AF0DC9D0001F1D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70C38591AF0DC9D0001F1D8 /* LaunchScreen.xib */; };
 		D70C38671AF0DC9D0001F1D8 /* QRCodeReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C38661AF0DC9D0001F1D8 /* QRCodeReaderTests.swift */; };
+		D77541BB1B471CA2008FAB82 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D77541BA1B471CA2008FAB82 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		D70C38661AF0DC9D0001F1D8 /* QRCodeReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReaderTests.swift; sourceTree = "<group>"; };
 		D70C38721AF0EE310001F1D8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		D70C38731AF0EE310001F1D8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D77541BA1B471CA2008FAB82 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		D70C38421AF0DC9D0001F1D8 = {
 			isa = PBXGroup;
 			children = (
+				D77541BA1B471CA2008FAB82 /* Default-568h@2x.png */,
 				D70C38721AF0EE310001F1D8 /* LICENSE.txt */,
 				D70C38731AF0EE310001F1D8 /* README.md */,
 				D70C384D1AF0DC9D0001F1D8 /* QRCodeReader */,
@@ -160,7 +163,8 @@
 		D70C38431AF0DC9D0001F1D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = nagata_kobo;
 				TargetAttributes = {
 					D70C384A1AF0DC9D0001F1D8 = {
@@ -197,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70C38561AF0DC9D0001F1D8 /* Main.storyboard in Resources */,
+				D77541BB1B471CA2008FAB82 /* Default-568h@2x.png in Resources */,
 				D70C385B1AF0DC9D0001F1D8 /* LaunchScreen.xib in Resources */,
 				D70C38581AF0DC9D0001F1D8 /* Images.xcassets in Resources */,
 			);
@@ -280,6 +285,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -347,6 +353,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = QRCodeReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oopers.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -358,6 +365,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = QRCodeReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oopers.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -376,6 +384,7 @@
 				);
 				INFOPLIST_FILE = QRCodeReaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oopers.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.app/QRCodeReader";
 			};
@@ -391,6 +400,7 @@
 				);
 				INFOPLIST_FILE = QRCodeReaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oopers.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.app/QRCodeReader";
 			};
