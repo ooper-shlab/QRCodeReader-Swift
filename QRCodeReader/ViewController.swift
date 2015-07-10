@@ -89,7 +89,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
-    @IBAction func openURL(AnyObject) {
+    @IBAction func openURL(_: AnyObject) {
         let urlStr = textField.text
         if let url = NSURL(string: urlStr!)
         where UIApplication.sharedApplication().canOpenURL(url) {
