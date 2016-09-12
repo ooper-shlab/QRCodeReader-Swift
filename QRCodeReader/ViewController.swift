@@ -33,19 +33,19 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetMedium
         
         let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
-        captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        captureVideoPreviewLayer.frame = self.imagePreviewView.bounds
+        captureVideoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        captureVideoPreviewLayer?.frame = self.imagePreviewView.bounds
         print(self.imagePreviewView.bounds)
-        self.imagePreviewView.layer.addSublayer(captureVideoPreviewLayer)
+        self.imagePreviewView.layer.addSublayer(captureVideoPreviewLayer!)
         
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let input: AVCaptureDeviceInput!
         do {
             input = try AVCaptureDeviceInput(device: device)
@@ -56,16 +56,16 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
 
         let metaOutput = AVCaptureMetadataOutput()
-        metaOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+        metaOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         session.addOutput(metaOutput)
         metaOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         
         self.updatable = true
-        self.openButton.enabled = false
+        self.openButton.isEnabled = false
         
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
 
         if !updatable {
             return
@@ -73,17 +73,17 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         for metadata in metadataObjects {
             if let readableCode = metadata as? AVMetadataMachineReadableCodeObject
-            where readableCode.type == AVMetadataObjectTypeQRCode {
+            , readableCode.type == AVMetadataObjectTypeQRCode {
                 let strValue = readableCode.stringValue
                 self.textField.text = strValue
-                if regex.numberOfMatchesInString(strValue, options: [], range: NSRange(0..<strValue.utf16.count)) > 0 {
-                    self.openButton.enabled = true
+                if regex.numberOfMatches(in: strValue!, options: [], range: NSRange(0..<(strValue?.utf16.count)!)) > 0 {
+                    self.openButton.isEnabled = true
                     self.updatable = false
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, INSENSITIVE_NANOS), dispatch_get_main_queue()) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(INSENSITIVE_NANOS) / Double(NSEC_PER_SEC)) {
                         self.updatable = true
                     }
                 } else {
-                    self.openButton.enabled = false
+                    self.openButton.isEnabled = false
                 }
             }
         }
@@ -91,9 +91,9 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBAction func openURL(_: AnyObject) {
         let urlStr = textField.text
-        if let url = NSURL(string: urlStr!)
-        where UIApplication.sharedApplication().canOpenURL(url) {
-            UIApplication.sharedApplication().openURL(url)
+        if let url = URL(string: urlStr!)
+        , UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.openURL(url)
         }
     }
 }
