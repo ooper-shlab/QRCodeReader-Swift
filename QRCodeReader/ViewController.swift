@@ -18,7 +18,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private let regex = try! NSRegularExpression(pattern: pattern, options: [])
     
     @IBOutlet var imagePreviewView: UIView!
-    var stillImageOutput: AVCaptureStillImageOutput!
+    //var stillImageOutput: AVCaptureStillImageOutput! //### not used...
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var openButton: UIButton!
     var updatable: Bool = false
@@ -37,18 +37,18 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewDidAppear(animated)
         
         let session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetMedium
+        session.sessionPreset = .medium
         
         let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
-        captureVideoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        captureVideoPreviewLayer?.frame = self.imagePreviewView.bounds
+        captureVideoPreviewLayer.videoGravity = .resizeAspectFill
+        captureVideoPreviewLayer.frame = self.imagePreviewView.bounds
         print(self.imagePreviewView.bounds)
-        self.imagePreviewView.layer.addSublayer(captureVideoPreviewLayer!)
+        self.imagePreviewView.layer.addSublayer(captureVideoPreviewLayer)
         
-        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let device = AVCaptureDevice.default(for: .video)
         let input: AVCaptureDeviceInput!
         do {
-            input = try AVCaptureDeviceInput(device: device)
+            input = try AVCaptureDeviceInput(device: device!)
         } catch let error as NSError {
             fatalError("ERROR: trying to open camera: \(error)")
         }
@@ -58,22 +58,24 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let metaOutput = AVCaptureMetadataOutput()
         metaOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         session.addOutput(metaOutput)
-        metaOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        metaOutput.metadataObjectTypes = [.qr]
         
         self.updatable = true
         self.openButton.isEnabled = false
         
     }
     
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+    func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 
         if !updatable {
             return
         }
         
         for metadata in metadataObjects {
-            if let readableCode = metadata as? AVMetadataMachineReadableCodeObject
-            , readableCode.type == AVMetadataObjectTypeQRCode {
+            if
+                let readableCode = metadata as? AVMetadataMachineReadableCodeObject,
+                readableCode.type == .qr
+            {
                 let strValue = readableCode.stringValue
                 self.textField.text = strValue
                 if regex.numberOfMatches(in: strValue!, options: [], range: NSRange(0..<(strValue?.utf16.count)!)) > 0 {
@@ -89,10 +91,12 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
-    @IBAction func openURL(_: AnyObject) {
+    @IBAction func openURL(_: Any) {
         let urlStr = textField.text
-        if let url = URL(string: urlStr!)
-        , UIApplication.shared.canOpenURL(url) {
+        if
+            let url = URL(string: urlStr!),
+            UIApplication.shared.canOpenURL(url)
+        {
             UIApplication.shared.openURL(url)
         }
     }
